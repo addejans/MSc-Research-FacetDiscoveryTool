@@ -18,6 +18,14 @@ Constraint programming is expressive, but mathematical optimization solvers are 
 
 This repository focuses on step 5: **classification and clustering of like-facets**.
 
+## Concrete example
+
+For a step-by-step walkthrough using an `at_least(1,3,2,4)`-style constraint, see:
+
+[`docs/CONCRETE_EXAMPLE.md`](docs/CONCRETE_EXAMPLE.md)
+
+The example shows how a global constraint becomes a linear formulation, how Fourier-Motzkin projection removes auxiliary variables, how projected inequalities are abstracted into coefficient patterns, and how those patterns can be clustered into reusable facet families.
+
 ## Relationship to the Fourier-Motzkin repo
 
 This project is directly related to the companion Fourier-Motzkin / facet-discovery repository:
@@ -65,6 +73,7 @@ docs/                        Modern research context and pipeline documentation
 
 ## Key documentation
 
+- [`docs/CONCRETE_EXAMPLE.md`](docs/CONCRETE_EXAMPLE.md) — walks through a concrete `at_least` example from constraint to projected inequalities to facet patterns.
 - [`docs/RESEARCH_CONTEXT.md`](docs/RESEARCH_CONTEXT.md) — explains the research problem in modern optimization language.
 - [`docs/PIPELINE.md`](docs/PIPELINE.md) — maps the Fourier-Motzkin pipeline to this repo's ML/facet-classification role.
 - [`docs/REPOSITORY_MAP.md`](docs/REPOSITORY_MAP.md) — explains where the historical artifacts live after cleanup.
