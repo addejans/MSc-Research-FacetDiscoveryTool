@@ -1,17 +1,80 @@
-# MSc-Research-FacetDiscoveryTool
+# Facet Discovery Tool
 
-## A Machine Learning Algorithm for the Classification of the Facets of Constraint Polytopes  _(September 2017 – April 2018)_
+**Machine learning for recognizing structure in facet-inducing inequalities and projected constraint polytopes.**
 
-An original algorithm for the classification of the facets of constraint polytopes. Protoyped in Python, desired final implementation in Common Lisp.
+This repository is a historical MSc research artifact from **September 2017 to April 2018**. The original project explored whether machine learning could classify and cluster families of facets that arise from projected constraint-programming formulations.
 
-This algorithm is one piece to a multi-year and multi-collaborative research project between graduate computer science and mathematics students.  The key idea is to merge the advantages of linear-programming and constraint problems so that we are able to exploit the expression of constraint programming models while not giving up solver speed of linear models.
+The short version: the companion Fourier-Motzkin project generates and projects linear formulations. This repository studies the resulting inequalities and tries to recognize repeated facet patterns.
 
-This project in particular was to cluster like-facets (see presentation).
+## Research idea
 
-In coordination with [facet discovery tool](https://github.com/jorts1114/facet-discovery-tool) for more information.
+Constraint programming is expressive, but mathematical optimization solvers are often fastest when the model is represented as a strong linear or mixed-integer formulation. The broader research program was about connecting those worlds:
 
-### Note:
-A lot of the code presented here was for research purposes and was not intended to be reused; thus it is very sloppy.
+1. Generate linear formulations of global constraints.
+2. Use Fourier-Motzkin elimination to project away auxiliary variables.
+3. Extract the resulting inequalities in the original decision-variable space.
+4. Abstract those inequalities into coefficient/right-hand-side patterns.
+5. Cluster or classify like-facets so reusable facet families can be discovered.
 
-#### Other:
-See an abstract of a talk including this project at the 49th Southeastern International Conference on Combinatorics, Graph Theory & Computing March 5-9, 2018 [here](http://www.math.fau.edu/combinatorics/kruk49.pdf)
+This repository focuses on step 5: **classification and clustering of like-facets**.
+
+## Relationship to the Fourier-Motzkin repo
+
+This project is directly related to the companion Fourier-Motzkin / facet-discovery repository:
+
+- Companion repo: [`jmedcoff/facet-discovery-tool`](https://github.com/jmedcoff/facet-discovery-tool)
+- Original link used in this repo: [`jorts1114/facet-discovery-tool`](https://github.com/jorts1114/facet-discovery-tool)
+
+The companion repo describes a pipeline with four stages:
+
+| Stage | Purpose |
+| --- | --- |
+| Generator | Generate IP formulations for global constraints. |
+| Projector | Use Fourier-Motzkin elimination to project onto the desired variable subspace. |
+| Abstractor | Convert projected inequalities into coefficient and constant patterns. |
+| Discoverer | Learn functions that map input parameters to facet coefficients. |
+
+This repository sits between the **Abstractor** and **Discoverer** stages. It experiments with feature engineering and ML-style grouping of facet patterns.
+
+## Why this mattered
+
+The research direction is essentially **formulation learning** before that term became common. Instead of only asking a solver to optimize, the question was:
+
+> Can we learn the structure of strong formulations themselves?
+
+That is useful because strong valid inequalities and facet-defining inequalities can dramatically improve optimization performance. If a system can discover, classify, and reuse those patterns, then it can help turn expressive constraint models into solver-efficient linear models.
+
+## Repository status
+
+This is a preserved research prototype, not a polished Python package. The notebooks and data files reflect exploratory work done during the MSc project.
+
+The repo has been reorganized so the historical material is easier to understand:
+
+```text
+notebooks/experiments/       Exploratory notebooks from the original research timeline
+artifacts/presentations/     MSc presentation slides
+artifacts/archives/          Original uploaded zip artifacts
+data/raw/                    Loose raw output and helper files
+bounds/                      Historical Fourier-Motzkin output files
+k0/                          Historical Fourier-Motzkin output files
+sorted20180211/              Historical sorted Fourier-Motzkin output files
+sorted20171105_Reduced/      Historical reduced Fourier-Motzkin output files
+sorted_reduced/              Historical reduced copy of sorted output files
+docs/                        Modern research context and pipeline documentation
+```
+
+## Key documentation
+
+- [`docs/RESEARCH_CONTEXT.md`](docs/RESEARCH_CONTEXT.md) — explains the research problem in modern optimization language.
+- [`docs/PIPELINE.md`](docs/PIPELINE.md) — maps the Fourier-Motzkin pipeline to this repo's ML/facet-classification role.
+- [`docs/REPOSITORY_MAP.md`](docs/REPOSITORY_MAP.md) — explains where the historical artifacts live after cleanup.
+
+## Historical note
+
+The original README said the code was "very sloppy" and not intended for reuse. That was true in the narrow software-engineering sense, but it undersold the research. The code should be read as a notebook-based research prototype for exploring facet clustering and polyhedral pattern recognition.
+
+## Conference reference
+
+An abstract for a talk including this project appeared at the **49th Southeastern International Conference on Combinatorics, Graph Theory & Computing**, March 5–9, 2018.
+
+Original abstract link: http://www.math.fau.edu/combinatorics/kruk49.pdf
